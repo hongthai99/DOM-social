@@ -1,9 +1,11 @@
 import React from 'react'
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './Home';
 import CreateScreen from './CreateNewFeed';
 import ProfileScreen from './Profile';
 import UserProfileScreen from './UserProfile';
+// import UserTabScreen from './UserTabScreen';
 import HomeeScreen from './Homee';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs'
@@ -18,8 +20,8 @@ const ProfileStack = createStackNavigator();
 const UserStack = createStackNavigator();
 //home-variant
 
-const MainTabScreen = () => (
-
+export default function MainTabScreen () {
+  return (
     <Tab.Navigator
     // đổi lại home thành Homee khi final
     //beri1@domedia.com
@@ -39,7 +41,7 @@ const MainTabScreen = () => (
       />
       <Tab.Screen
         name="Home"
-        component={HomeStackScreen}
+        component={HomeTabs}
         options={{
           tabBarLabel: 'Explore',
           tabBarIcon: ({ color }) => (
@@ -78,9 +80,41 @@ const MainTabScreen = () => (
         }}
       />
     </Tab.Navigator>
-);
+   
+)};
 
-// //  //
+//
+//  home customs
+
+function HomeTabs() {
+  return (
+    <UserStack.Navigator>
+      <UserStack.Screen
+        name="Home"
+        component={HomeStackScreen}
+        // options={{
+        //   tabBarLabel: 'Explore',
+        //   tabBarIcon: ({ color }) => (
+        //     <MaterialCommunityIcons name="chart-bubble" color={color} size={22} />
+        //   ),
+        // }}
+      />
+      <UserStack.Screen
+        name="UserProfile" // name
+        component={UserStackScreen} 
+        // options={{
+        //   tabBarLabel: 'User Profile',
+        //   tabBarIcon: ({ color }) => (
+        //     <MaterialCommunityIcons name="account-outline" color={color} size={22} />
+        //   ),
+        // }}
+      />
+    </UserStack.Navigator>
+  );
+}
+
+
+//  //
 
 // const Main = createStackNavigator();
 // const MainScreen = () => {
@@ -104,7 +138,7 @@ const MainTabScreen = () => (
 
 // // // 
 
-export default MainTabScreen;
+// export default MainTabScreen;
 const HomeStackScreen = ({navigation}) => (
     <HomeStack.Navigator screenOptions={{
         headerStyle: {
@@ -179,21 +213,21 @@ const ProfileStackScreen = ({navigation}) => (
 );
 
 // user profile
-// const UserStackScreen = ({navigation}) => (
-//   <UserStack.Navigator screenOptions={{
-//       headerStyle: {
-//           backgroundColor: '#009387'},
-//       headerTintColor:'#fff',
-//       headerTitleStyle:{
-//           fontWeight:'bold'}
-//   }}>
-//       <UserStack.Screen
-//       name="UserProfile"
-//       component={UserProfileScreen}
-//       options={{
-//           title:'New Post'
-//       }}
-//       />
+const UserStackScreen = ({navigation}) => (
+  <UserStack.Navigator screenOptions={{
+      headerStyle: {
+          backgroundColor: '#009387'},
+      headerTintColor:'#fff',
+      headerTitleStyle:{
+          fontWeight:'bold'}
+  }}>
+      <UserStack.Screen
+      name="UserProfile"
+      component={UserProfileScreen}
+      options={{
+          title:'New Post'
+      }}
+      />
 
-//   </UserStack.Navigator>
-// )
+  </UserStack.Navigator>
+)
