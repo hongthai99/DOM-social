@@ -1,10 +1,14 @@
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { DrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './Home';
 import CreateScreen from './CreateNewFeed';
 import ProfileScreen from './Profile';
 import UserProfileScreen from './UserProfile';
+//
+//
+// import dd from './hdhdhd'
 // import UserTabScreen from './UserTabScreen';
 import HomeeScreen from './Homee';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,6 +26,8 @@ const UserStack = createStackNavigator();
 
 export default function MainTabScreen () {
   return (
+  //  <NavigationContainer>
+  // <DrawerNavigator>
     <Tab.Navigator
     // đổi lại home thành Homee khi final
     //beri1@domedia.com
@@ -80,13 +86,13 @@ export default function MainTabScreen () {
         }}
       />
     </Tab.Navigator>
-   
+    // </DrawerNavigator>
 )};
 
 //
 //  home customs
 
-function HomeTabs() {
+function HomeTabs({navigation}) {
   return (
     <UserStack.Navigator>
       <UserStack.Screen
@@ -102,7 +108,8 @@ function HomeTabs() {
       <UserStack.Screen
         name="UserProfile" // name
         component={UserStackScreen} 
-        // options={{
+        // initialParams={item.postedBy._id}
+        // // options={{
         //   tabBarLabel: 'User Profile',
         //   tabBarIcon: ({ color }) => (
         //     <MaterialCommunityIcons name="account-outline" color={color} size={22} />
@@ -139,7 +146,7 @@ function HomeTabs() {
 // // // 
 
 // export default MainTabScreen;
-const HomeStackScreen = ({navigation}) => (
+const HomeStackScreen = () => (
     <HomeStack.Navigator screenOptions={{
         headerStyle: {
             backgroundColor: '#009387'},
@@ -213,7 +220,7 @@ const ProfileStackScreen = ({navigation}) => (
 );
 
 // user profile
-const UserStackScreen = ({navigation}) => (
+const UserStackScreen = () => (
   <UserStack.Navigator screenOptions={{
       headerStyle: {
           backgroundColor: '#009387'},

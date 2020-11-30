@@ -14,17 +14,19 @@ import {
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage';
 import {UserContext} from '../navigation/Routes'
-import {useLinkProps, useLinkTo} from '@react-navigation/native'
+import { round } from 'react-native-reanimated';
+// import {useLinkProps, useLinkTo} from '@react-navigation/native'
+// import UserProfile from './UserProfile';
 // import { useNavigation } from '@react-navigation/native';
 
 
 
-const HomeeScreen = ({navigation}) => {
+const HomeeScreen = ({props,navigation}) => {
         const [data, setData] = useState([])
         const {state, dispatch} = useContext(UserContext)
         const [token, setToken] = useState([])
         const [text, setText] = useState("")
-        const linkTo = useLinkTo();
+        // const linkTo = useLinkTo();
         // const navigation = useNavigation();
         // Pull to refresh
         // const [refreshing, setRefreshing] = useState(false);
@@ -172,15 +174,16 @@ const HomeeScreen = ({navigation}) => {
             })
         }
 
-        const selectItemHandler = (id) => {
-            navigation.navigate('UserProfile', {
-                params : {
-                    productID: '12345'
-                }
-            });
-            console.log(id, "Id will pass to user profile")
+
+
+        const selectItemHandler = (userid) => {
+            AsyncStorage.setItem('IdUserProfile', JSON.stringify({
+                userid: userid,
+              })),
+            navigation.navigate('UserProfile')
         };
     
+
          // const tokenUser = AsyncStorage.getItem("jwt")
         // console.log(tokenUser, "token Home")
         // try {const userData = await AsyncStorage.getItem('jwt')
@@ -208,7 +211,15 @@ const HomeeScreen = ({navigation}) => {
                             // onPress={() => linkTo(item.postedBy._id !== state._id ? "/Profile/" + item.postedBy._id : "/Profile")}
                             // onPress={() => linkTo("/UserProfile/" ,{
                             // })}
+                            // onPress={() => navigation.navigate('UserProfile', {name : "Thhh"})}
                             onPress={() => selectItemHandler(item.postedBy._id)}
+                            // onPress = {() => navigation.navigate('UserProfile', {ID: item.postedBy._id})}
+                            // // onPress={() => navigation.navigate(
+                            //     UserProfile,
+                            //     {
+                            //         item: item.postedBy._id
+                            //     }
+                            // )}
                             //onPress={() => navigation.navigate('UserProfile', {JSON_ListView_Clicked_Item: item.postedBy._id,} )}
                             // onPress={() => navigation.navigate('UserProfile', {
                             //     screen : 'userProfile',
@@ -403,3 +414,4 @@ const styles = StyleSheet.create({
     }
 });
 export default HomeeScreen;
+

@@ -21,7 +21,7 @@ const ProfileScreen = ({navigation}) => {
 
     const [mypic, setMypic] = useState([])
     const {state, dispatch} = useContext(UserContext)
-    // const {userid} = useState();
+
     // const [showFollow, setFollow] = useState(state?!state.following.includes(userid):true)
     
     // useEffect(()=>{
