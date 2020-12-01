@@ -19,6 +19,9 @@ const CreateScreen = ({navigation}) => {
     // const [picture,setPicture] = useState("")
     // const [url,setUrl] = useState("")
     const [image, setImage] = useState("")
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    
 
     //
     const uploadPhotoProfile = (image) => {
@@ -132,7 +135,7 @@ const CreateScreen = ({navigation}) => {
     //     }).catch(err => {
     //         console.log(err)s
     //     })
-    
+
 
     const pickImage = async () => {
         let data = await ImagePicker.launchImageLibraryAsync({
@@ -157,9 +160,13 @@ const CreateScreen = ({navigation}) => {
             name:`test.${data.uri.split(".")[1]}` 
         }
           uploadPhotoProfile(newfile)
+          setSelectedImage({ localUri: data.uri })
+          console.log({localUri: data.uri}, "Test");
         }
       };
 // beri1@domedia.com
+
+// console.log(image, "image Link create post");
     return(
         <View style={styles.container}>
             <Text style={styles.logo}>NEW</Text>
@@ -172,14 +179,18 @@ const CreateScreen = ({navigation}) => {
                 //   value={name}
                 />
               </View> */}
-              <View style={styles.dm}>
-                <TouchableOpacity onPress={()=>pickImage()}>
-                <Image
-                    // source={{ uri: image || null }}
-                    blurRadius={0.4} />
-                  <MaterialCommunityIcons name="shape-rectangle-plus" size={18}/>
-                </TouchableOpacity>
-              </View>
+              <>
+                  {
+                    selectedImage ?
+                    <Image style={styles.dm} source={{uri: selectedImage.localUri}}/>
+                    :
+                    <View style={styles.dm}>
+                      <TouchableOpacity onPress={()=>pickImage()}>
+                        <MaterialCommunityIcons name="shape-rectangle-plus" size={18}/>
+                      </TouchableOpacity> 
+                    </View>
+                  }
+              </>
               <View style={styles.inputView} >
                 <TextInput  
                   style={styles.inputText}
