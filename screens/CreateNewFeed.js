@@ -21,9 +21,6 @@ const CreateScreen = ({navigation}) => {
     const [image, setImage] = useState("")
     const [selectedImage, setSelectedImage] = useState(null);
 
-    
-
-    //
     const uploadPhotoProfile = (image) => {
         const data = new FormData()
         data.append("file", image)
@@ -203,7 +200,7 @@ const CreateScreen = ({navigation}) => {
               <View style={styles.inputView}>
                 <TextInput  
                   style={styles.inputText}
-                  placeholder="Test Body to change location with expo location "
+                  placeholder="More"
                   placeholderTextColor="#003f5c"
                   onChangeText={body => setBody(body)}
                   value={body}
