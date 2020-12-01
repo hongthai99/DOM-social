@@ -130,8 +130,9 @@ const CreateScreen = ({navigation}) => {
     //             navigation.navigate('Login')
     //         }
     //     }).catch(err => {
-    //         console.log(err)
+    //         console.log(err)s
     //     })
+    
 
     const pickImage = async () => {
         let data = await ImagePicker.launchImageLibraryAsync({
@@ -146,12 +147,14 @@ const CreateScreen = ({navigation}) => {
         if (!data.cancelled) {
           // setImage(data.uri);
           // // value(image)
-          // // console.log(uri,'After set URI')
+          // console.log(uri,'After set URI')
+          // note 
+          /// error
+          
           let newfile = { 
             uri:data.uri,
             type:`test/${data.uri.split(".")[1]}`,
             name:`test.${data.uri.split(".")[1]}` 
-      
         }
           uploadPhotoProfile(newfile)
         }
@@ -172,7 +175,7 @@ const CreateScreen = ({navigation}) => {
               <View style={styles.dm}>
                 <TouchableOpacity onPress={()=>pickImage()}>
                 <Image
-                    source={{ uri: image || null }}
+                    // source={{ uri: image || null }}
                     blurRadius={0.4} />
                   <MaterialCommunityIcons name="shape-rectangle-plus" size={18}/>
                 </TouchableOpacity>

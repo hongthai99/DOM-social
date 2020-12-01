@@ -46,6 +46,7 @@ const HomeeScreen = ({props,navigation}) => {
         // },[])
         
         useEffect(() => {
+            let repeat;
             // useCallback(
             async function fetchMyAPI() {
                 // setRefreshing(true);
@@ -65,6 +66,7 @@ const HomeeScreen = ({props,navigation}) => {
                     // Test Pull to refresh
                     // setListData(responseJson.result.concat(data));
                     // setRefreshing(false)
+                    repeat = setTimeout(fetchMyAPI, 600);
                 }catch(err){
                     console.log(err)
                 }

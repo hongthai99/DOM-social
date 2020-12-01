@@ -35,10 +35,11 @@ const HomeScreen = () => {
         // },[])
         
         useEffect(() => {
+            let repeat;
             async function fetchMyAPI() {
                 try{
                     const token = await AsyncStorage.getItem('jwt')
-                    console.log(token, "token homee")
+                    // console.log(token, "token homee")
                     setToken(token)
                     // console.log(JSON.parse(token).token)
                     // console.log(token)
@@ -51,6 +52,7 @@ const HomeScreen = () => {
                     // console.log(result)
                     setData(result.posts)
                     // setRefreshing(result)
+                    repeat = setTimeout(fetchMyAPI, 600);
                 }catch(err){
                     console.log(err)
                 }

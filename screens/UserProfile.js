@@ -25,7 +25,7 @@ const UserProfile = ({navigation}) => {
 
     // console.log(iduserprofile, "IDDDDDDDDDDDDDD");
     // console.log(tokenuserprofile, "TOKEENNNNNNNNNNN");
-
+    // console.log(iduserprofile , "User profile");
 
     const {state, dispatch} = useContext(UserContext)
     const [showFollow, setFollow] = useState(state?!state.following.includes(iduserprofile):true)
