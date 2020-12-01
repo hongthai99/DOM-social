@@ -11,6 +11,7 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Permissions from 'expo-permissions';
 
 
 const CreateScreen = ({navigation}) => {
@@ -20,6 +21,7 @@ const CreateScreen = ({navigation}) => {
     // const [url,setUrl] = useState("")
     const [image, setImage] = useState("")
     const [selectedImage, setSelectedImage] = useState(null);
+    
 
     const uploadPhotoProfile = (image) => {
         const data = new FormData()
@@ -163,6 +165,76 @@ const CreateScreen = ({navigation}) => {
       };
 // beri1@domedia.com
 
+///
+    // const pickCamera = async () => {
+
+    //   const permission = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    //     if (permission.status !== 'granted') {
+    //   const newPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    //     if (newPermission.status === 'granted') {
+    //     //its granted.
+    //      }
+    //       } else {
+    //       }
+
+    //   // let data = await ImagePicker.launchCameraAsync({
+    //   //   mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //   //   allowsEditing: true,
+    //   //   aspect: [1,1],
+    //   //   quality: 0.5,
+    //   // });
+    //   // if (!data.cancelled) {
+    //   //   // setImage(data.uri);
+    //   //   // // value(image)
+    //   //   // console.log(uri,'After set URI')
+    //   //   // note 
+    //   //   /// error
+        
+    //   //   let newfile = { 
+    //   //     uri:data.uri,
+    //   //     type:`test/${data.uri.split(".")[1]}`,
+    //   //     name:`test.${data.uri.split(".")[1]}` 
+    //   // }
+    //   //   uploadPhotoProfile(newfile)
+    //   //   setSelectedImage({ localUri: data.uri })
+    //   //   console.log({localUri: data.uri}, "Test");
+    //   // }
+    // }
+
+    const pickFromCamera = async () => {
+      const permissions = Permissions.CAMERA;
+      const { status } = await Permissions.askAsync(permissions);
+  
+      console.log(permissions, status);
+      if(status === 'granted') {
+        let data = await ImagePicker.launchCameraAsync({
+          mediaTypes: 'Images',
+          aspect: [1,1],
+          quality: 0.5,
+        }).catch(error => console.log(permissions, { error }));
+        if (!data.cancelled) {
+          // setImage(data.uri);
+          // // value(image)
+          // console.log(uri,'After set URI')
+          // note 
+          /// error
+          
+          let newfile = { 
+            uri:data.uri,
+            type:`test/${data.uri.split(".")[1]}`,
+            name:`test.${data.uri.split(".")[1]}` 
+        }
+          uploadPhotoProfile(newfile)
+          setSelectedImage({ localUri: data.uri })
+          console.log({localUri: data.uri}, "Test");
+        }
+        console.log(permissions, 'SUCCESS', data);
+      }
+    }
+
+    /// note
+
+
 // console.log(image, "image Link create post");
     return(
         <View style={styles.container}>
@@ -181,9 +253,12 @@ const CreateScreen = ({navigation}) => {
                     selectedImage ?
                     <Image style={styles.dm} source={{uri: selectedImage.localUri}}/>
                     :
-                    <View style={styles.dm}>
+                    <View style={{...styles.dm, flexDirection: 'row'}}>
                       <TouchableOpacity onPress={()=>pickImage()}>
-                        <MaterialCommunityIcons name="shape-rectangle-plus" size={18}/>
+                        <MaterialCommunityIcons name="shape-rectangle-plus" size={18} style={{margin: 10}}/>
+                      </TouchableOpacity> 
+                      <TouchableOpacity onPress={()=>pickFromCamera()}>
+                        <MaterialCommunityIcons name="camera" size={18} style={{margin: 10}}/>
                       </TouchableOpacity> 
                     </View>
                   }
@@ -215,8 +290,7 @@ const CreateScreen = ({navigation}) => {
     )
 }
 
-
-//beri1@domedia.com
+// 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
